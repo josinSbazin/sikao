@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Sikao</string>
+    <string name="tap">Tap</string>
+    <string name="the_end">End</string>
+    <string name="swipe">Swipe</string>
+    <string name="reset">Reset</string>
+    <string name="cut">Cut</string>
+    <string name="copy">Copy</string>
+    <string name="run">Run</string>
+    <string name="fill">Fill</string>
+    <string name="glass">Glass</string>
+    <string name="decanter">Decanter</string>
+
+</resources>
