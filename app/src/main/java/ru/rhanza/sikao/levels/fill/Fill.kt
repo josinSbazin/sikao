@@ -9,20 +9,26 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.hardware.SensorManager.SENSOR_DELAY_UI
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.rhanza.sikao.R
 import ru.rhanza.sikao.core.router
+import kotlin.math.abs
 import kotlin.math.atan2
 
 
-//todo надо придумать как наполнять и освобождать бокал
 class Fill : Fragment(R.layout.fragment_fill) {
 
     private var isDragged = false
 
-    private lateinit var decanter: View
+    private lateinit var decanter: ImageView
+    private lateinit var glass: ImageView
 
     private lateinit var sensorManager: SensorManager
     private lateinit var accelerometer: Sensor
@@ -33,9 +39,9 @@ class Fill : Fragment(R.layout.fragment_fill) {
         super.onViewCreated(view, savedInstanceState)
 
         val container = view.findViewById<View>(R.id.dragContainer)
-        val glass = view.findViewById<View>(R.id.glass)
 
-        decanter = view.findViewById<View>(R.id.decanter).apply {
+        glass = view.findViewById<ImageView>(R.id.glass)
+        decanter = view.findViewById<ImageView>(R.id.decanter).apply {
             tag = DECANTER_TAG
         }
 
@@ -64,7 +70,6 @@ class Fill : Fragment(R.layout.fragment_fill) {
                         isDragged = true
                     }
                     MotionEvent.ACTION_MOVE -> {
-                        // todo обработать выход за границы
                         decanter.x = x + dX
                         decanter.y = y + dY
                     }
@@ -84,8 +89,9 @@ class Fill : Fragment(R.layout.fragment_fill) {
                 if (isDragged) {
                     val xAxis: Float = event.values[0]
                     val yAxis: Float = event.values[1]
-                    val angle = atan2(xAxis.toDouble(), yAxis.toDouble()) / (Math.PI / 180)
+                    val angle = atan2(xAxis.toDouble(), yAxis.toDouble()) * 180 / Math.PI
                     decanter.rotation = -angle.toFloat()
+                    checkFilled()
                 }
             }
 
@@ -106,6 +112,25 @@ class Fill : Fragment(R.layout.fragment_fill) {
         sensorManager.unregisterListener(sensorListener, accelerometer)
     }
 
+    private fun checkFilled() {
+        if (abs(decanter.rotation) > MAX_ANGLE
+            && decanter.x < glass.x + glass.width
+            && decanter.x > glass.x) {
+            playFillAnimation {
+                requireActivity().router.next()
+            }
+        }
+    }
+
+    private fun playFillAnimation(after: () -> Unit) {
+        lifecycleScope.launch {
+            decanter.setImageResource(R.drawable.ic_water_glass_empty)
+            glass.setImageResource(R.drawable.ic_water_glass_full)
+            delay(BEFORE_FILL_DELAY_MILLIS)
+            after.invoke()
+        }
+    }
+
     private fun View.isClicked(x: Float, y: Float): Boolean {
         val rect = Rect()
         getHitRect(rect)
@@ -114,6 +139,8 @@ class Fill : Fragment(R.layout.fragment_fill) {
 
     companion object {
         private const val DECANTER_TAG = "DECANTER"
+        private const val MAX_ANGLE = 80f
+        private const val BEFORE_FILL_DELAY_MILLIS = 1000L
 
         fun newInstance() = Fill()
     }

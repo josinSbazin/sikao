@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
     <ImageView
@@ -14,7 +15,7 @@
         android:contentDescription="@string/cut"
         android:paddingTop="18dp"
         android:paddingBottom="18dp"
-        android:src="@drawable/ic_cut"
+        app:srcCompat="@drawable/ic_cut"
         />
 
 </FrameLayout>
