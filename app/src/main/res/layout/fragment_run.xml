@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:clickable="false"
         android:contentDescription="@string/run"
-        app:srcCompat="@drawable/ic_run"
+        app:srcCompat="@drawable/text_run"
         />
 
 </FrameLayout>

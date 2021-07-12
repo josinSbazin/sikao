@@ -9,6 +9,7 @@ import ru.rhanza.sikao.levels.cut.Cut
 import ru.rhanza.sikao.levels.end.End
 import ru.rhanza.sikao.levels.fill.Fill
 import ru.rhanza.sikao.levels.run.Run
+import ru.rhanza.sikao.levels.shake.Shake
 import ru.rhanza.sikao.levels.swipe.Swipe
 import ru.rhanza.sikao.levels.tap.Tap
 
@@ -58,9 +59,10 @@ class LevelsManager(activity: Activity) {
         private val levels = listOf(
             { Tap.newInstance() },
             { Swipe.newInstance() },
-            { Cut.newInstance() },
-            { Run.newInstance() },
+            { Shake.newInstance() },
             { Fill.newInstance() },
+            { Run.newInstance() },
+            { Cut.newInstance() },
             { End.newInstance() }
         )
     }

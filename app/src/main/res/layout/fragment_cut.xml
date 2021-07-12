@@ -15,7 +15,7 @@
         android:contentDescription="@string/cut"
         android:paddingTop="18dp"
         android:paddingBottom="18dp"
-        app:srcCompat="@drawable/ic_cut"
+        app:srcCompat="@drawable/text_cut"
         />
 
 </FrameLayout>

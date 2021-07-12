@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:clickable="false"
         android:contentDescription="@string/tap"
-        app:srcCompat="@drawable/ic_tap"
+        app:srcCompat="@drawable/text_tap"
         />
 
 </FrameLayout>

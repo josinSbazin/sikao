@@ -26,6 +26,7 @@ import kotlin.math.atan2
 class Fill : Fragment(R.layout.fragment_fill) {
 
     private var isDragged = false
+    private var isFilled = false
 
     private lateinit var decanter: ImageView
     private lateinit var glass: ImageView
@@ -113,9 +114,10 @@ class Fill : Fragment(R.layout.fragment_fill) {
     }
 
     private fun checkFilled() {
-        if (abs(decanter.rotation) > MAX_ANGLE
+        if (!isFilled && abs(decanter.rotation) > MAX_ANGLE
             && decanter.x < glass.x + glass.width
             && decanter.x > glass.x) {
+                isFilled = true
             playFillAnimation {
                 requireActivity().router.next()
             }

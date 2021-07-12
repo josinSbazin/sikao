@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:clickable="false"
-        android:contentDescription="@string/the_end"
-        app:srcCompat="@drawable/text_end"
+        android:contentDescription="@string/shake"
+        app:srcCompat="@drawable/text_shake"
         />
 
 </FrameLayout>

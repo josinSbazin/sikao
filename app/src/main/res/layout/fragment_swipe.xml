@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:clickable="false"
         android:contentDescription="@string/swipe"
-        app:srcCompat="@drawable/ic_swipe"
+        app:srcCompat="@drawable/text_swipe"
         />
 
 </FrameLayout>
